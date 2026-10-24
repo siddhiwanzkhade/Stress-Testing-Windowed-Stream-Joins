@@ -5,6 +5,7 @@ Measuring how join completeness and latency degrade in Apache Spark Structured S
 **Stream Processing | Apache Kafka | Spark Structured Streaming**
 
 *Accuracy-versus-Latency Trade-offs in Windowed Stream Joins Under Combined Real-World Imperfections*
+
 Big Data Systems, Algorithms and Networks (Fall 2026), Stony Brook University
 
 ## Overview
