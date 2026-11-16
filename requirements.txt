@@ -1,0 +1,10 @@
+# Tested on SeaWulf with Python 3.11 + Java 21 (Temurin)
+pyspark==4.3.0
+pandas==3.1.1
+pyarrow==26.0.1
+numpy==2.4.6
+confluent-kafka==2.16.1
+scipy==1.16.3
+
+
+

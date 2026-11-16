@@ -1,0 +1,22 @@
+# raw data and generated run output (large, reproducible)
+data/raw/*.parquet
+runs/
+output/
+chk/
+stream/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Kafka, Spark connector jars and cluster run output (all reproducible)
+tools/
+jars/
+.ivy/
+logs/
+runs_array/
+runs_scale/
+results/array/
+experiments/
+results/scale/
+kafka_work/
+
