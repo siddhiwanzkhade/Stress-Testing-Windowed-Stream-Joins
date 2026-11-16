@@ -22,7 +22,7 @@ Real streams rarely suffer one problem at a time. Late arrivals, traffic bursts,
 
 - Real NYC taxi trips (January 2026) are split into a **pickup** and a **fare** event, matched on trip ID.
 - Since every trip has both events, we know exactly which pairs should match (the **ground truth**) and can count what Spark missed.
-- Each condition runs at 5 watermarks (5–20 min) with 10 seeds.
+- Each condition runs at **5 watermarks (5, 8, 10, 14, 20 min)** with **10 seeds**.
 - A **disjoint control** makes sure no fare is hit by both problems, to test *why* compounding happens.
 
 ## Stressors
@@ -57,7 +57,7 @@ Runs on Stony Brook's **SeaWulf** cluster with SLURM: **859 runs, ~18 million tr
 - **Separate watermark and join window:** shows which one actually causes the loss.
 - **Ground truth:** every trip has a known pickup–fare pair, so missed matches are counted exactly.
 - **Independent stressors:** each one can be switched on alone or in pairs.
-- **Disjoint control:** - **Disjoint control:** normally a fare can be both late and caught in a burst. In this control, no fare gets both. If the extra loss disappears, compounding is caused by fares hit by both problems.
+- **Disjoint control:**  normally a fare can be both late and caught in a burst. In this control, no fare gets both. If the extra loss disappears, compounding is caused by fares hit by both problems.
 - **10 seeds per setting:** every result is repeated on 10 different random datasets.
 - **Seeded data per run:** each run builds its own data, so runs are independent and exactly repeatable.
 - **Fresh Kafka topics per run:** no data leaks between runs.
@@ -91,7 +91,7 @@ Baseline and skew only: 0% at every watermark.
 - **Compounding is real.** Late fares and bursts together lose **3.6 points more** than adding them up. It shows up at every watermark, across 10 seeds, with **p < 0.0001**. 
 - **We know why (Disjoint Control).** When no fare is hit by both problems, the extra loss disappears. Fares that are both late *and* stuck in a burst get both delays, which pushes them past the watermark.
 - **Lateness hurts most:** about **5× more** than bursts per second of watermark tightening. Skew loses nothing on a unique trip ID.
-- - **Waiting is a trade-off, and accuracy wins.** A longer watermark cuts loss from **16% to 2%**, while matches still come out in about **1.5 s**. The only cost: "no fare" answers come about 15 minutes later (**70 → 85 min**).
+- **Waiting is a trade-off, and accuracy wins.** A longer watermark cuts loss from **16% to 2%**, while matches still come out in about **1.5 s**. The only cost: "no fare" answers come about 15 minutes later (**70 → 85 min**).
 - **Policy matters.** Following the faster stream (`max`) makes bursts **6× worse** than the default (`min`).
 - **Scaling works, except for hot keys.** The trip-ID join handled **30× traffic** even on one node. A skewed zone join fell behind on every cluster size, because one busy key always lands on one task, so more machines don't help.
 
@@ -118,7 +118,7 @@ Baseline and skew only: 0% at every watermark.
 ## Running it
 
 ```bash
-git clone https://github.com/siddhiwanzkhade>/Stress-Testing-Windowed-Stream-Joins.git
+git clone https://github.com/siddhiwanzkhade/Stress-Testing-Windowed-Stream-Joins.git
 cd Stress-Testing-Windowed-Stream-Joins
 pip install -r requirements.txt
 ```
