@@ -123,17 +123,12 @@ cd Stress-Testing-Windowed-Stream-Joins
 pip install -r requirements.txt
 ```
 
-**See our results:** they're already in `results/` (`new_*_results.csv`). To recompute the compounding analysis from them:
+The results are in `results/` (`new_*_results.csv`). To recompute the compounding analysis from them:
 ```bash
 python analysis/compounding_report.py --results-log results/new_main_results.csv
 python analysis/pooled_interaction.py results/new_main_results.csv
 ```
 
-**Rerun all 859 experiments** (needs a SLURM cluster, Java 17/21, Python 3.11, and the January 2026 Yellow Taxi parquet from NYC TLC in `data/raw/`): follow the setup at the top of `requirements.txt`, then:
-```bash
-python slurm/make_experiments.py
-sbatch slurm/feeder.sh
-```
 
 *Big Data Systems, Algorithms and Networks (Fall 2026), Stony Brook University*
 
