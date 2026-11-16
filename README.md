@@ -115,7 +115,9 @@ Baseline and skew only: 0% at every watermark.
 | `slurm/feeder.sh` | Submits everything while staying under SeaWulf's 100-job limit |
 
 
-## Running it
+## Clone it
+
+Needs Python 3.11+ (and Java 17 or 21 to run Spark).
 
 ```bash
 git clone https://github.com/siddhiwanzkhade/Stress-Testing-Windowed-Stream-Joins.git
